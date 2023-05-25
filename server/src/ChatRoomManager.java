@@ -7,4 +7,6 @@ public class ChatRoomManager extends Thread{
     public ChatRoomManager(Socket client){
         currentSocket = client;
     }
+    @Override
+    public void run(){}
 }
