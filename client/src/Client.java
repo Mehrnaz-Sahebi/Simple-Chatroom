@@ -22,6 +22,19 @@ public class Client {
             System.out.println("Start chatting!");
             ClientInputManager clientInputManager = new ClientInputManager(inputStream);
             clientInputManager.start();
+            while (true){
+                Message message = new Message(username,scanner.nextLine());
+                if(message.getText().equals("exit")){
+                    outputStream.writeObject("Exit");
+                    outputStream.writeObject(username);
+                    System.out.println("Bye!");
+                    System.exit(0);
+                }
+                else {
+                    outputStream.writeObject("sendMessage");
+                    outputStream.writeObject(message);
+                }
+            }
         }catch (IOException e){
             e.printStackTrace();
         }
