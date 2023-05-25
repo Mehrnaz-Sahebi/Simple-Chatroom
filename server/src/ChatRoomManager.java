@@ -27,6 +27,22 @@ public class ChatRoomManager extends Thread {
                     System.out.println("sent the notification of " + username + " enter to " + loopUser.getUsername());
                 }
             }
+            while (true){
+                String inCommand =(String) currentUser.getInputStream().readObject();
+                if(inCommand.equals("Exit")){
+                    System.out.println("User "+ username+" exited the chatroom");
+                    for (User loopUser: users) {
+                        if(!loopUser.getUsername().equals(username)){
+                            ObjectOutputStream outputStreamToOther = loopUser.getOutputStream();
+                            outputStreamToOther.writeObject("newExit");
+                            outputStreamToOther.writeObject(username);
+                            System.out.println("sent the notification of "+ username+ " exit to "+loopUser.getUsername());
+                        }
+                    }
+                    users.remove(currentUser);
+                    break;
+                }
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
