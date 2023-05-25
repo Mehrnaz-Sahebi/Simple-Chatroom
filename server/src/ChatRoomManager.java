@@ -44,7 +44,7 @@ public class ChatRoomManager extends Thread {
                 }
                 if(inCommand.equals("sendMessage")){
                     Message message = (Message) currentUser.getInputStream().readObject();
-                    System.out.println(currentUser+" wrote the message: "+message.getText());
+                    System.out.println(currentUser.getUsername()+" wrote the message: "+message.getText());
                     for (User loopUser: users){
                         if(!loopUser.getUsername().equals(username)){
                             ObjectOutputStream outputStreamToOther = loopUser.getOutputStream();
