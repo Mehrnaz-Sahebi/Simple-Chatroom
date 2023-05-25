@@ -42,6 +42,18 @@ public class ChatRoomManager extends Thread {
                     users.remove(currentUser);
                     break;
                 }
+                if(inCommand.equals("sendMessage")){
+                    Message message = (Message) currentUser.getInputStream().readObject();
+                    System.out.println(currentUser+" wrote the message: "+message.getText());
+                    for (User loopUser: users){
+                        if(!loopUser.getUsername().equals(username)){
+                            ObjectOutputStream outputStreamToOther = loopUser.getOutputStream();
+                            outputStreamToOther.writeObject("newMessage");
+                            outputStreamToOther.writeObject(message);
+                            System.out.println("sent "+ message.getUsername()+"'s message to "+loopUser.getUsername());
+                        }
+                    }
+                }
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
