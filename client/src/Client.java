@@ -20,6 +20,8 @@ public class Client {
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
             outputStream.writeObject(username);
             System.out.println("Start chatting!");
+            ClientInputManager clientInputManager = new ClientInputManager(inputStream);
+            clientInputManager.start();
         }catch (IOException e){
             e.printStackTrace();
         }
